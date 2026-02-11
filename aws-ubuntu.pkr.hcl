@@ -4,6 +4,10 @@ packer {
       version = ">= 1.2.8"
       source  = "github.com/hashicorp/amazon"
     }
+    vagrant = {
+        version = ">= 1.1.1"
+        source = "github.com/hashicorp/vagrant"
+    }
   }
 }
 
@@ -49,7 +53,7 @@ source "amazon-ebs" "ubuntu-focal" {
 }
 
 build {
-  name = "learn-packer"
+  name    = "learn-packer"
   sources = [
     "source.amazon-ebs.ubuntu",
     "source.amazon-ebs.ubuntu-focal"
@@ -71,4 +75,6 @@ build {
   provisioner "shell" {
     inline = ["echo This provisioner runs last"]
   }
+
+  post-processor "vagrant" {}
 }
